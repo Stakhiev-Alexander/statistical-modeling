@@ -1,0 +1,167 @@
+import random
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import math
+
+
+
+def cumulative_dist_function_graph(arr):
+  kwargs = {'cumulative': True}
+  sns.distplot(arr, bins=20, hist_kws = kwargs, kde_kws=kwargs)
+
+def probability_density_function_graph(arr):
+  sns.distplot(arr, bins=20, kde=True)
+
+
+def M(arr, size):
+  M = sum(arr)/size
+  return M
+
+def D(M,arr,size):
+  D = 0
+  for i in range(size):
+    D += (arr[i] - M)**2
+
+  D /= size
+  return D
+
+
+def ravn(a, b, size):
+  arr = []
+  for i in range(size):
+    arr.append((b - a)*random.random() + a)
+  return arr
+
+
+def norm1(size):
+  arr = []
+  for i in range(size):
+    rn = 0
+    for j in range(12):
+      rn = rn + random.random()
+    z = rn - 6
+    arr.append(z)
+  return arr
+
+
+def norm2(beta, size):
+  arr = []
+  for i in range(size):
+    arr.append(math.sqrt(-2 * math.log(random.random())) * math.cos(2 * math.pi * random.random()))
+  return arr
+
+
+def expon(beta, size):
+  arr = []
+  for i in range(size):
+    arr.append(-beta * math.log(random.random()))
+  return arr
+
+
+def hi_kv(size):
+  arr = []
+  for i in range(size):
+    yn = 0
+    for j in range(10):
+      yn = yn + random.normalvariate(0,1)**2
+    arr.append(yn)
+  return arr
+
+
+def stud(size):
+  arr = []
+  for i in range(size):
+    yn = 0
+    for j in range(10):
+      yn = yn + random.normalvariate(0, 1)**2
+    arr.append(random.normalvariate(0,1)/math.sqrt(yn/10))
+  return arr
+
+a = 1
+b = 100
+size = 100000
+beta = 1
+
+arr = ravn(a, b, size)
+mat = M(arr, size)
+dis = D(mat, arr, size)
+print("Ravn:")
+print("{:.3f}".format(mat))
+print("{:.3f}".format(dis))
+
+
+arr = norm1(size)
+mat = M(arr, size)
+dis = D(mat, arr, size)
+print("Norm1:")
+print("{:.3f}".format(mat))
+print("{:.3f}".format(dis))
+
+arr = norm2(beta, size)
+mat = M(arr, size)
+dis = D(mat, arr, size)
+print("Norm2:")
+print("{:.3f}".format(mat))
+print("{:.3f}".format(dis))
+
+arr = expon(beta, size)
+mat = M(arr, size)
+dis = D(mat, arr, size)
+print("Expon:")
+print("{:.3f}".format(mat))
+print("{:.3f}".format(dis))
+
+arr = hi_kv(size)
+mat = M(arr, size)
+dis = D(mat, arr, size)
+print("Hi kv:")
+print("{:.3f}".format(mat))
+print("{:.3f}".format(dis))
+
+arr = stud(size)
+mat = M(arr, size)
+dis = D(mat, arr, size)
+print("Stud:")
+print("{:.3f}".format(mat))
+print("{:.3f}".format(dis))
+
+plt.subplot(5, 5, 1)
+cumulative_dist_function_graph(ravn(a, b, size))
+
+plt.subplot(5, 5, 2)
+probability_density_function_graph(ravn(a, b, size))
+
+
+plt.subplot(5, 5, 6)
+cumulative_dist_function_graph(norm1(size))
+
+plt.subplot(5, 5, 7)
+probability_density_function_graph(norm1(size))
+
+
+plt.subplot(5, 5, 11)
+cumulative_dist_function_graph(expon(beta, size))
+
+plt.subplot(5, 5, 12)
+probability_density_function_graph(expon(beta, size))
+
+
+plt.subplot(5, 5, 16)
+cumulative_dist_function_graph(hi_kv(size))
+
+plt.subplot(5, 5, 17)
+probability_density_function_graph(hi_kv(size))
+
+
+plt.subplot(5, 5, 21)
+cumulative_dist_function_graph(stud(size))
+
+plt.subplot(5, 5, 22)
+probability_density_function_graph(stud(size))
+
+
+
+mng = plt.get_current_fig_manager()
+mng.full_screen_toggle()
+plt.show()
