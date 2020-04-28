@@ -10,20 +10,22 @@ def cumulative_dist_function_graph(arr):
   kwargs = {'cumulative': True}
   sns.distplot(arr, bins=20, hist_kws = kwargs, kde_kws=kwargs)
 
+
 def probability_density_function_graph(arr):
   sns.distplot(arr, bins=20, kde=True)
 
 
-def M(arr, size):
-  M = sum(arr)/size
+def M(arr):
+  M = sum(arr)/len(arr)
   return M
 
-def D(M,arr,size):
-  D = 0
-  for i in range(size):
-    D += (arr[i] - M)**2
 
-  D /= size
+def D(M,arr):
+  D = 0
+  for i in arr:
+    D += (i - M)**2
+
+  D /= len(arr)
   return D
 
 
@@ -84,8 +86,8 @@ size = 100000
 beta = 1
 
 arr = ravn(a, b, size)
-mat = M(arr, size)
-dis = D(mat, arr, size)
+mat = M(arr)
+dis = D(mat, arr)
 print("Ravn:")
 print("{:.3f}".format(mat))
 print("{:.3f}".format(dis))
@@ -93,36 +95,36 @@ print("M = {:.3f}".format(mat) + '  M(teor) = 50.5  ' + '  deltaM = {:.3f}'.form
 print("M = {:.3f}".format(dis) + '  D(teor) = 816.75' + '  deltaD = {:.3f}'.format(abs(dis-816.75)))
 
 arr = norm1(size)
-mat = M(arr, size)
-dis = D(mat, arr, size)
+mat = M(arr)
+dis = D(mat, arr)
 print("Norm1:")
 print("M = {:.3f}".format(mat) + '  M(teor) = 0.0  ' + '  deltaM = {:.3f}'.format(abs(mat)))
 print("M = {:.3f}".format(dis) + '  D(teor) = 1.0  ' + '  deltaD = {:.3f}'.format(abs(dis-1)))
 
 arr = norm2(beta, size)
-mat = M(arr, size)
-dis = D(mat, arr, size)
+mat = M(arr)
+dis = D(mat, arr)
 print("Norm2:")
 print("M = {:.3f}".format(mat) + '  M(teor) = 0.0  ' + '  deltaM = {:.3f}'.format(abs(mat)))
 print("M = {:.3f}".format(dis) + '  D(teor) = 1.0  ' + '  deltaD = {:.3f}'.format(abs(dis-1)))
 
 arr = expon(beta, size)
-mat = M(arr, size)
-dis = D(mat, arr, size)
+mat = M(arr)
+dis = D(mat, arr)
 print("Expon:")
 print("M = {:.3f}".format(mat) + '  M(teor) = 1  ' + '  deltaM = {:.3f}'.format(abs(mat-1)))
 print("M = {:.3f}".format(dis) + '  D(teor) = 1  ' + '  deltaD = {:.3f}'.format(abs(dis-1)))
 
 arr = hi_kv(size)
-mat = M(arr, size)
-dis = D(mat, arr, size)
+mat = M(arr)
+dis = D(mat, arr)
 print("Hi kv:")
 print("M = {:.3f}".format(mat) + '  M(teor) = 10  ' + '  deltaM = {:.3f}'.format(abs(mat-10)))
 print("M = {:.3f}".format(dis) + '  D(teor) = 20  ' + '  deltaD = {:.3f}'.format(abs(dis-20)))
 
 arr = stud(size)
-mat = M(arr, size)
-dis = D(mat, arr, size)
+mat = M(arr)
+dis = D(mat, arr)
 print("Stud:")
 print("M = {:.3f}".format(mat) + '  M(teor) = 0.0  ' + '  deltaM = {:.3f}'.format(abs(mat)))
 print("M = {:.3f}".format(dis) + '  D(teor) = 1.25 ' + '  deltaD = {:.3f}'.format(abs(dis-1.25)))

@@ -28,7 +28,7 @@ def ravn(ILOW, IUP,size):
   return arr
 
 
-def nrand_general(size, n, p):
+def bin_general(size, n, p):
   pk = [math.factorial(n) / math.factorial(r) / math.factorial(n - r) * p ** r * (1 - p) ** (n - r) for r in range(n)]
   arr = []
   for i in range(size):
@@ -41,7 +41,7 @@ def nrand_general(size, n, p):
   return arr
 
 
-def rekur (size,n,p):
+def bin_rekur(size,n,p):
   arr = []
   for i in range(size):
     pk = (1 - p) ** n
@@ -51,7 +51,7 @@ def rekur (size,n,p):
       if r <= 0:
         arr.append(j)
         break
-      pk = pk*((n - j) / (j + 1)) * (p / (1 - p))
+      pk = pk*((n - j) / (j + 1)) * (p / (1 - p))  
   return arr
 
 
@@ -139,70 +139,71 @@ def log(size,p):
 
 
 
-def M(arr, size):
-  M = sum(arr)/size
+def M(arr):
+  M = sum(arr)/len(arr)
   return M
 
-def D(M,arr,size):
-  D = 0
-  for i in range(size):
-    D += (arr[i] - M)**2
 
-  D /= size
+def D(M,arr):
+  D = 0
+  for i in arr:
+    D += (i - M)**2
+
+  D /= len(arr)
   return D
 
 
 print("Uniform:")
-mat = M(ravn(ILOW, IUP, size), size)
-dis = D(mat,ravn(ILOW, IUP, size), size)
+mat = M(ravn(ILOW, IUP, size))
+dis = D(mat,ravn(ILOW, IUP, size))
 print('M = ' + str(mat) + '  M = 50.5 ' + '  M = ' + str(mat-50.5))
 print('D = ' + str(dis) + '  D = 833.25 ' + '  D = ' + str(dis-833.25))
 
 print("Binominal general:")
-mat = M(nrand_general(size, n, p), size-200)
-dis = D(mat,nrand_general(size, n, p), size-200)
+mat = M(bin_general(size, n, p))
+dis = D(mat,bin_general(size, n, p))
 print('M = ' + str(mat) + '  M = 5.0 ' + '  M = ' + str(mat-5.0))
 print('D = ' + str(dis) + '  D = 2.5 ' + '  D = ' + str(dis-2.5))
 
 print("Binominal rekur:")
-mat = M(rekur(size, n, p), size-200)
-dis = D(mat,rekur(size, n, p), size-200)
+mat = M(bin_rekur(size, n, p))
+dis = D(mat,bin_rekur(size, n, p))
 print('M = ' + str(mat) + '  M = 5.0 ' + '  M = ' + str(mat-5.0))
 print('D = ' + str(dis) + '  D = 2.5 ' + '  D = ' + str(dis-2.5))
 
 print("Geometric rekur1:")
-mat = M(rekur_geom1(size, p), size)
-dis = D(mat,rekur_geom1(size, p), size)
+mat = M(rekur_geom1(size, p))
+dis = D(mat,rekur_geom1(size, p))
 print('M = ' + str(mat) + '  M = 2.0 ' + '  M = ' + str(mat-2.0))
 print('D = ' + str(dis) + '  D = 2.2 ' + '  D = ' + str(dis-2.2))
 
 print("Geometric rekur2:")
-mat = M(rekur_geom2(size, p), size)
-dis = D(mat,rekur_geom2(size, p), size)
+mat = M(rekur_geom2(size, p))
+dis = D(mat,rekur_geom2(size, p))
 print('M = ' + str(mat) + '  M = 2.0 ' + '  M = ' + str(mat-2.0))
 print('D = ' + str(dis) + '  D = 2.2 ' + '  D = ' + str(dis-2.2))
 
 print("Geometric rekur3:")
-mat = M(rekur_geom3(size, p), size)
-dis = D(mat,rekur_geom3(size, p), size)
+mat = M(rekur_geom3(size, p))
+dis = D(mat,rekur_geom3(size, p))
 print('M = ' + str(mat) + '  M = 2.0 ' + '  M = ' + str(mat-2.0))
 print('D = ' + str(dis) + '  D = 2.2 ' + '  D = ' + str(dis-2.2))
 
 print("Poisson alg1:")
-mat = M(puas1(size, mu), size)
-dis = D(mat,puas1(size, mu), size)
+mat = M(puas1(size, mu))
+dis = D(mat,puas1(size, mu))
 print('M = ' + str(mat) + '  M = 10.0 ' + '  M = ' + str(mat-10.0))
 print('D = ' + str(dis) + '  D = 10.0 ' + '  D = ' + str(dis-10.0))
 
 print("Poisson alg2:")
-mat = M(puas2(size, mu), size)
-dis = D(mat,puas2(size, mu), size)
+mat = M(puas2(size, mu))
+dis = D(mat,puas2(size, mu))
 print('M = ' + str(mat) + '  M = 10.0 ' + '  M = ' + str(mat-10.0))
 print('D = ' + str(dis) + '  D = 10.0 ' + '  D = ' + str(dis-10.0))
 
 print("Logarithmic:")
-mat = M(log(size, p), size)
-dis = D(mat,log(size, p), size)
+mat = M(log(size, p))
+dis = D(mat,log(size, p))
 print('M = ' + str(mat) + '  M = 1.44270 ' + '  M = ' + str(mat-1.44270))
 print('D = ' + str(dis) + '  D = 0.80402 ' + '  D = ' + str(dis-0.80402))
 
@@ -214,9 +215,9 @@ probability_density_function_graph(ravn(ILOW, IUP, size))
 
 
 plt.subplot(5, 5, 6)
-cumulative_dist_function_graph(rekur(size, n, p))
+cumulative_dist_function_graph(bin_rekur(size, n, p))
 plt.subplot(5, 5, 7)
-probability_density_function_graph(rekur(size, n, p))
+probability_density_function_graph(bin_rekur(size, n, p))
 
 
 plt.subplot(5, 5, 11)
