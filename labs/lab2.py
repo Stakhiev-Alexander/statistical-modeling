@@ -205,3 +205,37 @@ mat = M(log(size, p), size)
 dis = D(mat,log(size, p), size)
 print('M = ' + str(mat) + '  M = 1.44270 ' + '  M = ' + str(mat-1.44270))
 print('D = ' + str(dis) + '  D = 0.80402 ' + '  D = ' + str(dis-0.80402))
+
+
+plt.subplot(5, 5, 1)
+cumulative_dist_function_graph(ravn(ILOW, IUP, size))
+plt.subplot(5, 5, 2)
+probability_density_function_graph(ravn(ILOW, IUP, size))
+
+
+plt.subplot(5, 5, 6)
+cumulative_dist_function_graph(rekur(size, n, p))
+plt.subplot(5, 5, 7)
+probability_density_function_graph(rekur(size, n, p))
+
+
+plt.subplot(5, 5, 11)
+cumulative_dist_function_graph(rekur_geom3(size, p))
+plt.subplot(5, 5, 12)
+probability_density_function_graph(rekur_geom3(size, p))
+
+
+plt.subplot(5, 5, 16)
+cumulative_dist_function_graph(puas2(size, mu))
+plt.subplot(5, 5, 17)
+probability_density_function_graph(puas2(size, mu))
+
+
+plt.subplot(5, 5, 21)
+cumulative_dist_function_graph(log(size, p))
+plt.subplot(5, 5, 22)
+probability_density_function_graph(log(size, p))
+
+mng = plt.get_current_fig_manager()
+mng.full_screen_toggle()
+plt.show()
