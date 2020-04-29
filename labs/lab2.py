@@ -106,17 +106,14 @@ def puas1(size,mu):
 
 
 def puas2(size,mu):
-  arr = []
+  arr = [] 
   for i in range(size):
-    pk = math.e ** (-mu)
-    r = random.random()
-    j = 1
-    while True:
-      if r <= pk:
-        arr.append(j)
-        break
-      r = r*random.random()
-      j = j + 1
+    r = random.random() 
+    j = 0 
+    while r >= math.exp(-mu):
+      r *= random.random() 
+      j += 1
+    arr.append(j)
   return arr
 
 

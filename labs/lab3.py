@@ -49,8 +49,9 @@ def norm1(size):
 
 def norm2(beta, size):
   arr = []
-  for i in range(size):
+  for i in range(int(size/2)):
     arr.append(math.sqrt(-2 * math.log(random.random())) * math.cos(2 * math.pi * random.random()))
+    arr.append(math.sqrt(-2 * math.log(random.random())) * math.sin(2 * math.pi * random.random()))
   return arr
 
 
