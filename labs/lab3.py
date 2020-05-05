@@ -84,7 +84,7 @@ def stud(size):
 a = 1
 b = 100
 size = 100000
-beta = 1
+beta = 20
 
 arr = ravn(a, b, size)
 mat = M(arr)

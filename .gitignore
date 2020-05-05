@@ -1,3 +1,6 @@
+# Word temporary
+~$*.doc*
+
 # bak files from freeOffice
 *.bak
 
