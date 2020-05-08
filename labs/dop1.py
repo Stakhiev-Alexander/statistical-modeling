@@ -8,9 +8,9 @@ def stirling(a, b):
         return 0
     return stirling(a - 1, b - 1) + b * stirling(a - 1, b)
 
-n = 100
+n = 10000
 m = 3
-t = 9
+t = 100
 d = 2 ** m - 1
 r = 2 ** m
 
