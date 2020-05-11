@@ -26,9 +26,10 @@ print(f'M = {np.mean(arr)}')
 print(f'D = {np.var(arr)}')
 
 n = len(arr)
-
+arr.sort()
 u = (2*np.arange(1, n+1) - 1)/(2*n)
 F_arr = [F(1/beta, x) for x in arr]
 w = 1/(12*(n**2)) + np.sum((F_arr - u)**2) / n
 
 print(f'omega**2 = {w}')
+print(f'n * omega**2 = {n * w}')

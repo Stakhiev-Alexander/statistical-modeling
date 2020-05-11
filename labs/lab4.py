@@ -12,7 +12,7 @@ def lfrs(x):
 
 
 def pt(L):
-  N = 47500  # alpha = 0.95, eps = 0.001
+  N = 47500
   n = [4, 2, 3, 2]
   m = 4
   lam = [40 * 10 ** (-6), 10 * 10 ** (-6), 80 * 10 ** (-6), 30 * 10 ** (-6)]
@@ -37,16 +37,16 @@ def pt(L):
 
 p0 = 0.995
 L = [0] * 4
-n_reserve = 4
-for i in range(n_reserve - 2, n_reserve + 1):
-L[0] = i
-for j in range(n_reserve - 2, n_reserve + 1):
-  L[1] = j
-  for k in range(n_reserve - 2, n_reserve + 1):
-    L[2] = k
-    for t in range(n_reserve - 2, n_reserve + 1):
-      L[3] = t
-      p = pt(L)
-      if p > p0:
-        print("p =", round(p, 3), "  L =", L, "with sum =", sum(L))
+n_reserve = 2
+for i in range(n_reserve, n_reserve + 3):
+  L[0] = i
+  for j in range(n_reserve, n_reserve + 3):
+    L[1] = j
+    for k in range(n_reserve, n_reserve + 3):
+      L[2] = k
+      for t in range(n_reserve, n_reserve + 3):
+        L[3] = t
+        p = pt(L)
+        if p > p0:
+          print("p =", round(p, 3), "  L =", L, "with sum =", sum(L))
 
